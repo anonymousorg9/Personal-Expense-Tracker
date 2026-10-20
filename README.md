@@ -54,16 +54,31 @@ dart run tool/dart_basics.dart
 
 The command completed successfully. Its captured output is available in [dart-basics-output.txt](docs/evidence/dart-basics-output.txt), and the [Dart source](tool/dart_basics.dart) is part of this repository.
 
-## Verification
+## Experiment 2 Flutter Widgets and Layouts
 
-At the dashboard milestone, the project was checked with Flutter static analysis and widget tests:
+The dashboard composes `Text`, `Icon`, `Container`, `Row`, and `Column` widgets. Its balance card uses `Stack` and `Positioned` for restrained decorative layers, as shown in the [desktop dashboard capture](docs/screenshots/dashboard-desktop.png). When a fresh tracker has no entries, the Transactions screen displays the local [empty-ledger illustration](assets/illustrations/empty_ledger.png) through `Image.asset`; the asset is declared in `pubspec.yaml` and does not require a network connection.
 
-```powershell
-flutter analyze
-flutter test
+```dart
+Image.asset(
+  'assets/illustrations/empty_ledger.png',
+  width: 176,
+  height: 124,
+  fit: BoxFit.contain,
+)
 ```
 
-Recorded results: `No issues found!` and `All tests passed!` (10 tests).
+The [Transactions screen](lib/features/transactions/transactions_screen.dart) contains this image widget. A widget test verifies that the empty state loads the local asset without an exception. The dashboard screenshot demonstrates the layered `Stack` layout; it does not show the empty state.
+
+## Verification
+
+At the widget/layout milestone, Flutter static analysis and the complete widget/controller test suite passed:
+
+```powershell
+flutter analyze --no-pub
+flutter test --no-pub
+```
+
+Recorded results: `No issues found!` and `All tests passed!` (11 tests).
 
 ## Run Locally
 

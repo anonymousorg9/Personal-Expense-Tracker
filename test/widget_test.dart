@@ -1,9 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 
 import 'package:personal_finance_tracker/app/app.dart';
+import 'package:personal_finance_tracker/features/transactions/finance_controller.dart';
+import 'package:personal_finance_tracker/features/transactions/transactions_screen.dart';
 
 void main() {
+  testWidgets('empty transactions state loads its local illustration', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      ChangeNotifierProvider(
+        create: (_) => FinanceController(),
+        child: const MaterialApp(home: TransactionsScreen()),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(
+      find.byKey(const Key('empty-transactions-illustration')),
+      findsOneWidget,
+    );
+    expect(find.text('No transactions yet'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('Personal Finance Tracker dashboard renders', (
     WidgetTester tester,
   ) async {

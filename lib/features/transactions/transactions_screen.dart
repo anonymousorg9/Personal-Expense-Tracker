@@ -286,12 +286,15 @@ class _EmptyTransactions extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.receipt_long_outlined,
-            size: 48,
-            color: Theme.of(context).colorScheme.primary,
+          Image.asset(
+            'assets/illustrations/empty_ledger.png',
+            key: const Key('empty-transactions-illustration'),
+            width: 176,
+            height: 124,
+            fit: BoxFit.contain,
+            semanticLabel: 'An illustrated empty finance ledger',
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 4),
           const Text(
             'No transactions yet',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
