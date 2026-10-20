@@ -105,6 +105,14 @@ void main() {
     await tester.pumpWidget(const PersonalFinanceApp());
 
     expect(
+      tester
+          .widget<AnimatedSwitcher>(
+            find.byKey(const Key('dashboard-balance-switcher')),
+          )
+          .duration,
+      const Duration(milliseconds: 240),
+    );
+    expect(
       tester.widget<Text>(find.byKey(const Key('summary-value-expenses'))).data,
       '\u20B94,720.00',
     );
@@ -114,6 +122,11 @@ void main() {
     await tester.enterText(find.byKey(const Key('transaction-title')), 'Books');
     await tester.enterText(find.byKey(const Key('transaction-amount')), '100');
     await tester.tap(find.byKey(const Key('save-transaction')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(find.byKey(const Key('dashboard-balance-value')), findsNWidgets(2));
+
     await tester.pumpAndSettle();
 
     expect(

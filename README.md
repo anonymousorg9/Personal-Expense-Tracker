@@ -83,6 +83,10 @@ final columns = switch (constraints.maxWidth) {
 
 See the [dashboard layout source](lib/features/dashboard/dashboard_screen.dart). The [mobile capture](docs/screenshots/dashboard-mobile.png) is 360 × 695; the [desktop capture](docs/screenshots/dashboard-desktop.png) is 1242 × 761. A widget test lays out both viewport sizes, checks the expected navigation at each width, and verifies that neither layout throws.
 
+## Experiment 8 Animations
+
+When a saved transaction changes the net balance, the dashboard uses `AnimatedSwitcher` for a 240 ms fade and short vertical slide. It reads `MediaQuery.disableAnimationsOf(context)` and removes the transition when the platform requests reduced motion. The widget test checks that the old and new balance values overlap during the transition and that the final amount is correct. The desktop screenshot shows the settled dashboard state; a static screenshot cannot show the motion itself.
+
 ## Verification
 
 At the widget/layout milestone, Flutter static analysis and the complete widget/controller test suite passed:

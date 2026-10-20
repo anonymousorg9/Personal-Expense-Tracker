@@ -499,14 +499,47 @@ class _BalanceCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        currency.format(balanceInPaise / 100),
-                        key: const Key('dashboard-balance-value'),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 34,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: -0.5,
+                      AnimatedSwitcher(
+                        key: const Key('dashboard-balance-switcher'),
+                        duration: MediaQuery.disableAnimationsOf(context)
+                            ? Duration.zero
+                            : const Duration(milliseconds: 240),
+                        switchInCurve: Curves.easeOutCubic,
+                        switchOutCurve: Curves.easeInCubic,
+                        transitionBuilder: (child, animation) {
+                          final curvedAnimation = CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeOutCubic,
+                            reverseCurve: Curves.easeInCubic,
+                          );
+                          return FadeTransition(
+                            opacity: curvedAnimation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0, 0.12),
+                                end: Offset.zero,
+                              ).animate(curvedAnimation),
+                              child: child,
+                            ),
+                          );
+                        },
+                        layoutBuilder: (currentChild, previousChildren) =>
+                            Stack(
+                              alignment: AlignmentDirectional.centerStart,
+                              children: [...previousChildren, ?currentChild],
+                            ),
+                        child: KeyedSubtree(
+                          key: ValueKey(balanceInPaise),
+                          child: Text(
+                            currency.format(balanceInPaise / 100),
+                            key: const Key('dashboard-balance-value'),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 34,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -0.5,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 8),
