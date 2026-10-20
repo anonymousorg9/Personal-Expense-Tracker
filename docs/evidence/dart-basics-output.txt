@@ -1,0 +1,13 @@
+Dart basics demonstration: ledger summary
+Demo data: yes (sample entries)
+Transactions: 4
+Income: ₹45000.00
+Expenses: ₹4720.00
+Net balance after opening balance ₹12000.00: ₹52280.00
+Unique categories: 4
+Expenses by category:
+- Bills & utilities: ₹1850.00
+- Food & dining: ₹420.00
+- Groceries: ₹2450.00
+Largest spending category: Groceries (52% of spending)
+Balance status: positive

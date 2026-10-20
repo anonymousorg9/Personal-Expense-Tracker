@@ -42,6 +42,18 @@ final categoryTotals = finance.expenseTotalsByCategory.entries.toList()
 
 See the [dashboard implementation](lib/features/dashboard/dashboard_screen.dart) and [transaction controller](lib/features/transactions/finance_controller.dart) for the complete code.
 
+## Experiment 1 Dart Basics
+
+The standalone Dart demonstration uses typed variables, a `LedgerEntry` class, a reusable total function, a list, a set, a map, loops, and a switch expression. It uses finance examples without creating another Flutter application.
+
+Run it with:
+
+```powershell
+dart run tool/dart_basics.dart
+```
+
+The command completed successfully. Its captured output is available in [dart-basics-output.txt](docs/evidence/dart-basics-output.txt), and the [Dart source](tool/dart_basics.dart) is part of this repository.
+
 ## Verification
 
 At the dashboard milestone, the project was checked with Flutter static analysis and widget tests:
