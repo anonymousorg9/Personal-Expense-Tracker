@@ -13,15 +13,17 @@ Transactions currently live in memory. The sample transactions are for demonstra
 
 ## Dashboard Evidence
 
-The screenshots show the running Flutter web dashboard at mobile and desktop widths. The implementation and state logic are available in [dashboard_screen.dart](lib/features/dashboard/dashboard_screen.dart), [finance_controller.dart](lib/features/transactions/finance_controller.dart), and [finance_transaction.dart](lib/features/transactions/finance_transaction.dart).
+The screenshots show the running Flutter web dashboard at mobile and desktop widths, including both supported themes. The implementation and state logic are available in [dashboard_screen.dart](lib/features/dashboard/dashboard_screen.dart), [finance_controller.dart](lib/features/transactions/finance_controller.dart), and [finance_transaction.dart](lib/features/transactions/finance_transaction.dart).
 
 ![Personal finance dashboard at mobile width](docs/screenshots/dashboard-mobile.png)
 
 *Mobile dashboard, 360 × 695 capture.*
 
-![Personal finance dashboard at desktop width](docs/screenshots/dashboard-desktop.png)
+| Dark theme | Light theme |
+|---|---|
+| ![Dashboard in dark theme](docs/screenshots/dashboard-desktop.png) | ![Dashboard in light theme](docs/screenshots/dashboard-light-desktop.png) |
 
-*Desktop dashboard, 1242 × 761 capture.*
+*Desktop Dashboard captures. The light-theme session includes one additional “MOVIE” demo expense, so the displayed totals differ from the dark-theme session.*
 
 ## Project Report
 
@@ -113,11 +115,13 @@ When a saved transaction changes the net balance, the dashboard uses `AnimatedSw
 
 The Analytics screen requests the public Frankfurter v2 `USD/INR` reference rate. The API returns a small JSON object with `date`, `base`, `quote`, and `rate`; the verified response is preserved in [usd-inr-api-response.json](docs/evidence/usd-inr-api-response.json). The app displays the observation date and identifies the value as a daily reference rate, not a live trading quote. The [service](lib/features/exchange_rates/exchange_rate_service.dart) validates the response, and the [card](lib/features/exchange_rates/exchange_rate_card.dart) provides loading, error, and retry states. The request contains only the fixed currency pair; transaction data is not sent.
 
-The running web app was captured with the successful rate response at two desktop widths:
+The running web app was captured with the successful rate response in both themes. These separate demo sessions show the same recorded exchange-rate reference and category breakdown:
 
-![Analytics and USD/INR exchange rate at desktop width](docs/screenshots/analytics-exchange-rate-desktop.png)
+| Dark theme | Light theme |
+|---|---|
+| ![Analytics in dark theme](docs/screenshots/analytics-exchange-rate-desktop.png) | ![Analytics in light theme](docs/screenshots/analytics-exchange-rate-light-desktop.png) |
 
-*Analytics page at 1240 × 765, showing the dated USD/INR reference rate and expense categories.*
+*Analytics pages at desktop width, showing the dated USD/INR reference rate and expense categories.*
 
 ![Analytics and USD/INR exchange rate at a wider desktop width](docs/screenshots/analytics-exchange-rate-wide.png)
 
