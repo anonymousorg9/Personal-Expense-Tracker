@@ -1,0 +1,20 @@
+00:00 +0: loading E:/Development/Projects/personal_finance_tracker/test/exchange_rate_test.dart
+00:00 +0: E:/Development/Projects/personal_finance_tracker/test/exchange_rate_test.dart: ExchangeRateService requests and parses the USD/INR reference rate
+00:00 +1: E:/Development/Projects/personal_finance_tracker/test/finance_controller_test.dart: FinanceController calculates totals and spending by category in paise
+00:00 +2: E:/Development/Projects/personal_finance_tracker/test/exchange_rate_test.dart: ExchangeRateService reports non-success HTTP responses
+00:00 +3: E:/Development/Projects/personal_finance_tracker/test/finance_controller_test.dart: FinanceController adds a transaction and notifies listeners
+00:00 +4: E:/Development/Projects/personal_finance_tracker/test/finance_controller_test.dart: FinanceController adds a transaction and notifies listeners
+00:00 +5: E:/Development/Projects/personal_finance_tracker/test/exchange_rate_test.dart: ExchangeRateCard shows loading then the dated rate
+00:00 +6: E:/Development/Projects/personal_finance_tracker/test/exchange_rate_test.dart: ExchangeRateCard shows loading then the dated rate
+00:00 +7: E:/Development/Projects/personal_finance_tracker/test/exchange_rate_test.dart: ExchangeRateCard shows loading then the dated rate
+00:00 +8: E:/Development/Projects/personal_finance_tracker/test/exchange_rate_test.dart: ExchangeRateCard shows loading then the dated rate
+00:00 +9: E:/Development/Projects/personal_finance_tracker/test/exchange_rate_test.dart: ExchangeRateCard shows loading then the dated rate
+00:00 +10: E:/Development/Projects/personal_finance_tracker/test/widget_test.dart: empty transactions state loads its local illustration
+00:00 +11: E:/Development/Projects/personal_finance_tracker/test/widget_test.dart: empty transactions state loads its local illustration
+00:00 +12: E:/Development/Projects/personal_finance_tracker/test/widget_test.dart: Personal Finance Tracker dashboard renders
+00:01 +13: E:/Development/Projects/personal_finance_tracker/test/widget_test.dart: dashboard adapts navigation at mobile and desktop widths
+00:01 +14: E:/Development/Projects/personal_finance_tracker/test/widget_test.dart: theme toggle switches between light and dark modes
+00:01 +15: E:/Development/Projects/personal_finance_tracker/test/widget_test.dart: dashboard totals update from a saved transaction
+00:02 +16: E:/Development/Projects/personal_finance_tracker/test/widget_test.dart: named routes open Transactions and Analytics
+00:02 +17: E:/Development/Projects/personal_finance_tracker/test/widget_test.dart: transaction form validates, adds, edits, and deletes
+00:03 +18: All tests passed!

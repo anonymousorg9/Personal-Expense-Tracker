@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
 
 import 'package:personal_finance_tracker/app/app.dart';
+import 'package:personal_finance_tracker/features/exchange_rates/exchange_rate_service.dart';
 import 'package:personal_finance_tracker/features/transactions/finance_controller.dart';
 import 'package:personal_finance_tracker/features/transactions/transactions_screen.dart';
 
@@ -99,6 +102,29 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('theme toggle switches between light and dark modes', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const PersonalFinanceApp());
+    final dashboardTitle = find.text('Your financial overview');
+    final initialBrightness = Theme.of(tester.element(dashboardTitle))
+        .brightness;
+
+    await tester.tap(find.byTooltip('Toggle theme'));
+    await tester.pumpAndSettle();
+    expect(
+      Theme.of(tester.element(dashboardTitle)).brightness,
+      initialBrightness == Brightness.dark ? Brightness.light : Brightness.dark,
+    );
+
+    await tester.tap(find.byTooltip('Toggle theme'));
+    await tester.pumpAndSettle();
+    expect(
+      Theme.of(tester.element(dashboardTitle)).brightness,
+      initialBrightness,
+    );
+  });
+
   testWidgets('dashboard totals update from a saved transaction', (
     WidgetTester tester,
   ) async {
@@ -144,7 +170,18 @@ void main() {
   testWidgets('named routes open Transactions and Analytics', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(const PersonalFinanceApp());
+    final client = MockClient(
+      (_) async => http.Response(
+        '{"date":"2026-10-20","base":"USD","quote":"INR","rate":94.85}',
+        200,
+      ),
+    );
+    addTearDown(client.close);
+    await tester.pumpWidget(
+      PersonalFinanceApp(
+        exchangeRateService: ExchangeRateService(client: client),
+      ),
+    );
 
     await tester.tap(find.text('Transactions'));
     await tester.pumpAndSettle();
@@ -181,6 +218,21 @@ void main() {
     await tester.enterText(titleField, 'Rent');
     final amountField = find.byKey(const Key('transaction-amount'));
     await tester.ensureVisible(amountField);
+    await tester.enterText(amountField, '0');
+    await tester.ensureVisible(saveButton);
+    await tester.tap(saveButton);
+    await tester.pumpAndSettle();
+    expect(find.text('Amount must be greater than zero.'), findsOneWidget);
+
+    await tester.enterText(amountField, '123.456');
+    await tester.ensureVisible(saveButton);
+    await tester.tap(saveButton);
+    await tester.pumpAndSettle();
+    expect(
+      find.text('Use up to 12 digits and 2 decimal places.'),
+      findsOneWidget,
+    );
+
     await tester.enterText(amountField, '123.45');
     await tester.ensureVisible(saveButton);
     await tester.tap(saveButton);
