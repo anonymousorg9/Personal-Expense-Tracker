@@ -23,6 +23,12 @@ The screenshots show the running Flutter web dashboard at mobile and desktop wid
 
 *Desktop dashboard, 1242 × 761 capture.*
 
+## Project Report
+
+The college-format report includes the project summary, methodology, Day 1–Day 7 milestone log, verified implementation results, and genuine dashboard and analytics screenshots. It records the supplied reporting window and states that the repository's implementation commits are dated 20 October 2026. Mentor, department, and evaluation fields remain unsigned and blank for review.
+
+[Open the Personal Finance Tracker project report](docs/Personal_Finance_Tracker_Project_Report.docx)
+
 The transaction list is shown at desktop width:
 
 ![Transactions screen at desktop width](docs/screenshots/transactions-desktop.png)
