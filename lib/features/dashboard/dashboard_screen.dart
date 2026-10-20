@@ -1,8 +1,9 @@
-﻿import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/router.dart';
 import '../../app/theme/app_colors.dart';
 import '../../app/theme/theme_controller.dart';
 
@@ -82,7 +83,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 NavigationDestination(
                   icon: Icon(Icons.grid_view_outlined),
                   selectedIcon: Icon(Icons.grid_view_rounded),
-                  label: 'Home',
+                  label: 'Dashboard',
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.swap_horiz_outlined),
@@ -90,24 +91,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   label: 'Transactions',
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.bar_chart_outlined),
-                  selectedIcon: Icon(Icons.bar_chart_rounded),
-                  label: 'Reports',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.settings_outlined),
-                  selectedIcon: Icon(Icons.settings_rounded),
-                  label: 'Settings',
+                  icon: Icon(Icons.insights_outlined),
+                  selectedIcon: Icon(Icons.insights_rounded),
+                  label: 'Analytics',
                 ),
               ],
             ),
     );
   }
 
-  void _onNavigationSelected(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  Future<void> _onNavigationSelected(int index) async {
+    if (index == _selectedIndex) return;
+    setState(() => _selectedIndex = index);
+    if (index == 0) return;
+
+    final route = index == 1 ? AppRouter.transactions : AppRouter.analytics;
+    await Navigator.of(context)
+        .pushNamedAndRemoveUntil(route, (route) => route.isFirst);
+    if (!mounted) return;
+    setState(() => _selectedIndex = 0);
   }
 }
 
@@ -173,29 +175,10 @@ class _SideNavigation extends StatelessWidget {
             onTap: () => onSelected(1),
           ),
           _NavItem(
-            icon: Icons.account_balance_wallet_outlined,
-            label: 'Budgets',
+            icon: Icons.insights_rounded,
+            label: 'Analytics',
             selected: selectedIndex == 2,
             onTap: () => onSelected(2),
-          ),
-          _NavItem(
-            icon: Icons.bar_chart_rounded,
-            label: 'Reports',
-            selected: selectedIndex == 3,
-            onTap: () => onSelected(3),
-          ),
-          _NavItem(
-            icon: Icons.category_outlined,
-            label: 'Categories',
-            selected: selectedIndex == 4,
-            onTap: () => onSelected(4),
-          ),
-          const Spacer(),
-          _NavItem(
-            icon: Icons.settings_outlined,
-            label: 'Settings',
-            selected: selectedIndex == 5,
-            onTap: () => onSelected(5),
           ),
         ],
       ),

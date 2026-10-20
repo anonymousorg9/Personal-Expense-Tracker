@@ -1,7 +1,8 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../features/dashboard/dashboard_screen.dart';
+import '../features/transactions/finance_controller.dart';
+import 'router.dart';
 import 'theme/app_theme.dart';
 import 'theme/theme_controller.dart';
 
@@ -10,8 +11,11 @@ class PersonalFinanceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ThemeController(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeController()),
+        ChangeNotifierProvider(create: (_) => FinanceController.withDemoData()),
+      ],
       child: Consumer<ThemeController>(
         builder: (context, controller, _) {
           return MaterialApp(
@@ -20,7 +24,8 @@ class PersonalFinanceApp extends StatelessWidget {
             theme: AppTheme.light(),
             darkTheme: AppTheme.dark(),
             themeMode: controller.themeMode,
-            home: const DashboardScreen(),
+            initialRoute: AppRouter.dashboard,
+            onGenerateRoute: AppRouter.onGenerateRoute,
           );
         },
       ),
