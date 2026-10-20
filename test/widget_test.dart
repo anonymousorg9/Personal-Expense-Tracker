@@ -9,17 +9,78 @@ void main() {
   ) async {
     await tester.pumpWidget(const PersonalFinanceApp());
 
-    expect(find.text('Good morning, Adithya'), findsOneWidget);
+    expect(find.text('FINTRACK · PERSONAL FINANCE'), findsOneWidget);
     expect(find.text('Your financial overview'), findsOneWidget);
-    expect(find.text('Total balance'), findsOneWidget);
-    expect(find.text('\u20B984,250'), findsOneWidget);
+    expect(find.text('Net balance'), findsOneWidget);
+    expect(
+      tester
+          .widget<Text>(find.byKey(const Key('dashboard-balance-value')))
+          .data,
+      '\u20B940,280.00',
+    );
     expect(find.text('Income'), findsOneWidget);
     expect(find.text('Expenses'), findsOneWidget);
-    expect(find.text('Savings'), findsOneWidget);
+    expect(find.text('Net result'), findsOneWidget);
+
+    final dashboardScroll = find
+        .descendant(
+          of: find.byType(CustomScrollView),
+          matching: find.byType(Scrollable),
+        )
+        .first;
+    final spendingInsight = find.textContaining(
+      'Groceries is the largest recorded spending category',
+    );
+    await tester.scrollUntilVisible(
+      spendingInsight,
+      240,
+      scrollable: dashboardScroll,
+    );
+    expect(spendingInsight, findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.text('Spending overview'),
+      240,
+      scrollable: dashboardScroll,
+    );
     expect(find.text('Spending overview'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('Recent transactions'),
+      240,
+      scrollable: dashboardScroll,
+    );
     expect(find.text('Recent transactions'), findsOneWidget);
-    expect(find.text('Salary'), findsOneWidget);
+    expect(find.text('Monthly salary'), findsOneWidget);
     expect(find.text('Groceries'), findsOneWidget);
+  });
+
+  testWidgets('dashboard totals update from a saved transaction', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const PersonalFinanceApp());
+
+    expect(
+      tester.widget<Text>(find.byKey(const Key('summary-value-expenses'))).data,
+      '\u20B94,720.00',
+    );
+
+    await tester.tap(find.byTooltip('Add transaction'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('transaction-title')), 'Books');
+    await tester.enterText(find.byKey(const Key('transaction-amount')), '100');
+    await tester.tap(find.byKey(const Key('save-transaction')));
+    await tester.pumpAndSettle();
+
+    expect(
+      tester
+          .widget<Text>(find.byKey(const Key('dashboard-balance-value')))
+          .data,
+      '\u20B940,180.00',
+    );
+    expect(
+      tester.widget<Text>(find.byKey(const Key('summary-value-expenses'))).data,
+      '\u20B94,820.00',
+    );
   });
 
   testWidgets('named routes open Transactions and Analytics', (
