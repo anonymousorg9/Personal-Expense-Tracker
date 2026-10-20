@@ -69,6 +69,20 @@ Image.asset(
 
 The [Transactions screen](lib/features/transactions/transactions_screen.dart) contains this image widget. A widget test verifies that the empty state loads the local asset without an exception. The dashboard screenshot demonstrates the layered `Stack` layout; it does not show the empty state.
 
+## Experiment 3 Responsive UI
+
+The app switches from bottom navigation to a sidebar at 1100 logical pixels. The dashboard uses `LayoutBuilder` to arrange spending and recent transactions in columns on wider layouts and adjusts its summary grid from one to three columns:
+
+```dart
+final columns = switch (constraints.maxWidth) {
+  >= 900 => 3,
+  >= 560 => 2,
+  _ => 1,
+};
+```
+
+See the [dashboard layout source](lib/features/dashboard/dashboard_screen.dart). The [mobile capture](docs/screenshots/dashboard-mobile.png) is 360 × 695; the [desktop capture](docs/screenshots/dashboard-desktop.png) is 1242 × 761. A widget test lays out both viewport sizes, checks the expected navigation at each width, and verifies that neither layout throws.
+
 ## Verification
 
 At the widget/layout milestone, Flutter static analysis and the complete widget/controller test suite passed:
@@ -78,7 +92,7 @@ flutter analyze --no-pub
 flutter test --no-pub
 ```
 
-Recorded results: `No issues found!` and `All tests passed!` (11 tests).
+Recorded results at the current milestone: `No issues found!` and `All tests passed!` (12 tests).
 
 ## Run Locally
 

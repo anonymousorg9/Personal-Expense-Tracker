@@ -650,7 +650,7 @@ class _SummaryCards extends StatelessWidget {
             crossAxisCount: columns,
             crossAxisSpacing: 14,
             mainAxisSpacing: 14,
-            mainAxisExtent: 118,
+            mainAxisExtent: 128,
           ),
           itemBuilder: (context, index) {
             final item = cards[index];

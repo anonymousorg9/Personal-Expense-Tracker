@@ -76,6 +76,29 @@ void main() {
     expect(find.text('Groceries'), findsOneWidget);
   });
 
+  testWidgets('dashboard adapts navigation at mobile and desktop widths', (
+    WidgetTester tester,
+  ) async {
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(360, 695);
+
+    await tester.pumpWidget(const PersonalFinanceApp());
+    await tester.pumpAndSettle();
+
+    expect(find.byType(NavigationBar), findsOneWidget);
+    expect(find.text('FinTrack'), findsNothing);
+    expect(tester.takeException(), isNull);
+
+    tester.view.physicalSize = const Size(1242, 761);
+    await tester.pumpAndSettle();
+
+    expect(find.text('FinTrack'), findsOneWidget);
+    expect(find.byType(NavigationBar), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('dashboard totals update from a saved transaction', (
     WidgetTester tester,
   ) async {
